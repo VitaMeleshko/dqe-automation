@@ -1,0 +1,8 @@
+# PyTest and plugins
+pytest>=9.0.3
+pytest-html~=4.2.0
+pytest-metadata>=3.1.0
+
+# Data processing
+pandas>=3.0.0
+
