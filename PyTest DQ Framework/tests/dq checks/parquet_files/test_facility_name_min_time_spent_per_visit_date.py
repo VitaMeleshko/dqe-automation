@@ -30,6 +30,11 @@ def target_data(parquet_reader):
     """
     target_path = '/parquet_data/facility_name_min_time_spent_per_visit_date'
     target_data = parquet_reader.process(target_path, include_subfolders=True)
+
+    # Remove partition_date (created for partitioning)
+    if 'partition_date' in target_data.columns:
+        target_data = target_data.drop(columns=['partition_date'])
+
     return target_data
 
 
