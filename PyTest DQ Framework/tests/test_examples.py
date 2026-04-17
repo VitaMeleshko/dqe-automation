@@ -6,7 +6,7 @@ Author(s): Name Surname
 
 import pytest
 
-
+@pytest.mark.parquet_data
 @pytest.fixture(scope='module')
 def source_data(db_connection):
     source_query = """
@@ -15,7 +15,7 @@ def source_data(db_connection):
     source_data = db_connection.get_data_sql(source_query)
     return source_data
 
-
+@pytest.mark.parquet_data
 @pytest.fixture(scope='module')
 def target_data(parquet_reader):
     target_path = '/root/path/to/file'
