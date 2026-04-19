@@ -55,7 +55,7 @@ def test_check_count(source_data, target_data, data_quality_library):
 
 @pytest.mark.parquet_data
 @pytest.mark.facility_name_min_time_spent_per_visit_date
-def check_data_full_data_set(source_data, target_data, data_quality_library):
+def test_check_data_full_data_set(source_data, target_data, data_quality_library):
     """Validate that all data from source is present in target"""
     data_quality_library.check_data_full_data_set(source_data, target_data)
 

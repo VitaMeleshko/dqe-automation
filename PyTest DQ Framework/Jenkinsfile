@@ -35,7 +35,7 @@ pipeline {
                     archiveArtifacts artifacts: 'html_report/**', allowEmptyArchive: true
 
                     publishHTML(target: [
-                        allowMissing: false,
+                        allowMissing: true,
                         keepAll: true,
                         reportDir: 'html_report',
                         reportFiles: 'report.html',

@@ -31,8 +31,17 @@ class DataQualityLibrary:
     @staticmethod
     def check_data_full_data_set(df1, df2):
 
+        df1_sorted = df1.sort_values(by=df1.columns.tolist()).reset_index(drop=True)
+        df2_sorted = df2.sort_values(by=df2.columns.tolist()).reset_index(drop=True)
+
         # Validate that two data frames are equal
-        assert df1.equals(df2), "DataFrames are not equal"
+        assert df1_sorted.equals(df2_sorted), (
+            f"DataFrames are not equal:\n"
+            f"  Source shape: {df1.shape}\n"
+            f"  Target shape: {df2.shape}\n"
+            f"  Source columns: {df1.columns.tolist()}\n"
+            f"  Target columns: {df2.columns.tolist()}"
+    )
 
     @staticmethod
     def check_dataset_is_not_empty(df):
