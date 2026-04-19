@@ -29,14 +29,10 @@ class DataQualityLibrary:
 
 
     @staticmethod
-    def check_data_completeness(df1, df2):
-
-        # Sort DataFrame to compare
-        df1_sorted = df1.sort_values(by=df1.columns.tolist()).reset_index(drop=True)
-        df2_sorted = df2.sort_values(by=df2.columns.tolist()).reset_index(drop=True)
+    def check_data_full_data_set(df1, df2):
 
         # Comparing
-        assert df1_sorted.equals(df2_sorted), "Data are not completeness"
+        assert df1.equals(df2), "Data are not equal"
 
     @staticmethod
     def check_dataset_is_not_empty(df):
