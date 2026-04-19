@@ -31,8 +31,8 @@ class DataQualityLibrary:
     @staticmethod
     def check_data_full_data_set(df1, df2):
 
-        # Comparing
-        assert df1.equals(df2), "Data are not equal"
+        # Validate that two data frames are equal
+        assert df1.equals(df2), "DataFrames are not equal"
 
     @staticmethod
     def check_dataset_is_not_empty(df):
