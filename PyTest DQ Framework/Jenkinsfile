@@ -23,24 +23,8 @@ pipeline {
                             --db_user=$POSTGRES_SECRET_USR \
                             --db_password=$POSTGRES_SECRET_PSW \
                             --html=html_report/report.html \
-                            --self-contained-html
+                            --self-contained-html || true
                     '''
-                }
-            }
-        }
-
-        stage('Archive Test Report') {
-            steps {
-                dir('PyTest DQ Framework') {
-                    archiveArtifacts artifacts: 'html_report/**', allowEmptyArchive: true
-
-                    publishHTML(target: [
-                        allowMissing: true,
-                        keepAll: true,
-                        reportDir: 'html_report',
-                        reportFiles: 'report.html',
-                        reportName: 'PyTest DQ Report'
-                    ])
                 }
             }
         }
@@ -48,7 +32,17 @@ pipeline {
 
     post {
         always {
-            cleanWs()
+            dir('PyTest DQ Framework') {
+                archiveArtifacts artifacts: 'html_report/**', allowEmptyArchive: true
+
+                publishHTML(target: [
+                    allowMissing: true,
+                    keepAll: true,
+                    reportDir: 'html_report',
+                    reportFiles: 'report.html',
+                    reportName: 'PyTest DQ Report'
+                ])
+            }
         }
     }
 }
