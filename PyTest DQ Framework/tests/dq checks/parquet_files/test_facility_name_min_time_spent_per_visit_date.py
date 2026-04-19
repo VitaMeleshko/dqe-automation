@@ -55,6 +55,11 @@ def target_data(parquet_reader):
 @pytest.mark.facility_name_min_time_spent_per_visit_date
 def test_check_dataset_is_not_empty(target_data, data_quality_library):
     """Validate that data set is not empty"""
+    # DEBUG
+    print(f"\n🔍 target_data columns: {target_data.columns.tolist()}")
+    print(f"🔍 target_data shape: {target_data.shape}")
+    print(f"🔍 'partition_date' in columns: {'partition_date' in target_data.columns}")
+
     data_quality_library.check_dataset_is_not_empty(target_data)
 
 
