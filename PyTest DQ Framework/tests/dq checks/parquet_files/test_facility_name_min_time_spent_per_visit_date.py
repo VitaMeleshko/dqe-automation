@@ -31,9 +31,21 @@ def target_data(parquet_reader):
     target_path = '/parquet_data/facility_name_min_time_spent_per_visit_date'
     target_data = parquet_reader.process(target_path, include_subfolders=True)
 
-    # Remove partition_date (created for partitioning)
+    print(f"\n🔍 DEBUG: Columns BEFORE drop: {target_data.columns.tolist()}")
+    print(f"🔍 DEBUG: Row count BEFORE drop: {len(target_data)}")
+
+    # Видаляємо технічну колонку partition_date
     if 'partition_date' in target_data.columns:
+        print("⚠️ partition_date column EXISTS - dropping it")
         target_data = target_data.drop(columns=['partition_date'])
+    else:
+        print("✅ partition_date column NOT FOUND")
+
+    print(f"🔍 DEBUG: Columns AFTER drop: {target_data.columns.tolist()}")
+    print(f"🔍 DEBUG: Row count AFTER drop: {len(target_data)}")
+    # Remove partition_date (created for partitioning)
+  #  if 'partition_date' in target_data.columns:
+   #     target_data = target_data.drop(columns=['partition_date'])
 
     return target_data
 
