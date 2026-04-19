@@ -24,7 +24,6 @@ pipeline {
                             --db_password=$POSTGRES_SECRET_PSW \
                             --html=html_report/report.html \
                             --self-contained-html
-                            -s
                     '''
                 }
             }
