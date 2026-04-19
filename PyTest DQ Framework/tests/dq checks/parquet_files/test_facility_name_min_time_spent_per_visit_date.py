@@ -35,14 +35,14 @@ def target_data(parquet_reader):
     print(f"🔍 DEBUG: Row count BEFORE drop: {len(target_data)}")
 
     # Видаляємо технічну колонку partition_date
-    if 'partition_date' in target_data.columns:
-        print("⚠️ partition_date column EXISTS - dropping it")
-        target_data = target_data.drop(columns=['partition_date'])
-    else:
-        print("✅ partition_date column NOT FOUND")
+   # if 'partition_date' in target_data.columns:
+       # print("⚠️ partition_date column EXISTS - dropping it")
+       # target_data = target_data.drop(columns=['partition_date'])
+    #else:
+     #   print("✅ partition_date column NOT FOUND")
 
-    print(f"🔍 DEBUG: Columns AFTER drop: {target_data.columns.tolist()}")
-    print(f"🔍 DEBUG: Row count AFTER drop: {len(target_data)}")
+   # print(f"🔍 DEBUG: Columns AFTER drop: {target_data.columns.tolist()}")
+   # print(f"🔍 DEBUG: Row count AFTER drop: {len(target_data)}")
     # Remove partition_date (created for partitioning)
   #  if 'partition_date' in target_data.columns:
    #     target_data = target_data.drop(columns=['partition_date'])
@@ -56,9 +56,7 @@ def target_data(parquet_reader):
 def test_check_dataset_is_not_empty(target_data, data_quality_library):
     """Validate that data set is not empty"""
     # DEBUG
-    print(f"\n🔍 target_data columns: {target_data.columns.tolist()}")
-    print(f"🔍 target_data shape: {target_data.shape}")
-    print(f"🔍 'partition_date' in columns: {'partition_date' in target_data.columns}")
+    assert 'partition_date' not in target_data.columns, f"Columns: {target_data.columns.tolist()}, Shape: {target_data.shape}"
 
     data_quality_library.check_dataset_is_not_empty(target_data)
 
