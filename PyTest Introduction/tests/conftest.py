@@ -1,35 +1,25 @@
-import os
-from pathlib import Path
-
 import pytest
 import pandas as pd
-# Fixture to  provide path to CSV file.
-@pytest.fixture(scope="session")
-def path_to_file():
-
-    return Path(__file__).parent.parent / "src" / "data" / "data.csv"
 
 # Fixture to load csv file and returns DataFrame
 @pytest.fixture(scope="session")
-def read_csv_data(path_to_file):
+def read_csv_data(request):
+    def _read_csv(path):
 
-    df = pd.read_csv(path_to_file)
+        return pd.read_csv(path)
 
-    return df
-# Fixture to get the expected schema of the file
-@pytest.fixture(scope="session")
-def expected_schema():
-    """
-    return expected file's schema
-    Returns: list of columns
-    """
-    return ['id', 'name', 'age', 'email', 'is_active']
+    return _read_csv
 
-# Fixture to get the actual schema of the file
-@pytest.fixture(scope="session")
-def actual_schema(read_csv_data):
-
-    return list(read_csv_data.columns)
+# Fixture that compares two schemas (actual and expected)
+@pytest.fixture
+def validate_schema():
+    def _compare_schemas(actual_schema, expected_schema):
+        assert actual_schema == expected_schema, (
+            f"Schema is incorrect\n"
+            f"Expected: {expected_schema}\n"
+            f"Actual: {actual_schema}"
+        )
+    return _compare_schemas
 
 # Pytest hook to mark unmarked tests with a custom mark
 def pytest_collection_modifyitems(items):
