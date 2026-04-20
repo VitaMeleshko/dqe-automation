@@ -1,6 +1,6 @@
 """
-Description: Data Quality checks ...
-Requirement(s): TICKET-1234
+Description: Data Quality checks for facility_type_avg_time_spent_per_visit_date dataset
+Requirement(s): TICKET-1235
 Author(s): Vita Meleshko
 """
 import pytest
@@ -40,38 +40,38 @@ def target_data(parquet_reader):
 
 @pytest.mark.parquet_data
 @pytest.mark.smoke
-@pytest.mark.facility_name_min_time_spent_per_visit_date
+@pytest.mark.facility_type_avg_time_spent_per_visit_date
 def test_check_dataset_is_not_empty(target_data, data_quality_library):
     """Validate that data set is not empty"""
     data_quality_library.check_dataset_is_not_empty(target_data)
 
 
 @pytest.mark.parquet_data
-@pytest.mark.facility_name_min_time_spent_per_visit_date
+@pytest.mark.facility_type_avg_time_spent_per_visit_date
 def test_check_count(source_data, target_data, data_quality_library):
     """Validate that source and target have the same row count"""
     data_quality_library.check_count(source_data, target_data)
 
 
 @pytest.mark.parquet_data
-@pytest.mark.facility_name_min_time_spent_per_visit_date
+@pytest.mark.facility_type_avg_time_spent_per_visit_date
 def test_check_data_full_data_set(source_data, target_data, data_quality_library):
     """Validate that all data from source is present in target"""
     data_quality_library.check_data_full_data_set(source_data, target_data)
 
 
 @pytest.mark.parquet_data
-@pytest.mark.facility_name_min_time_spent_per_visit_date
+@pytest.mark.facility_type_avg_time_spent_per_visit_date
 def test_check_duplicates(target_data, data_quality_library):
     """Validate that there are no duplicate rows in target dataset"""
     data_quality_library.check_duplicates(target_data)
 
 
 @pytest.mark.parquet_data
-@pytest.mark.facility_name_min_time_spent_per_visit_date
+@pytest.mark.facility_type_avg_time_spent_per_visit_date
 def test_check_not_null_values(target_data, data_quality_library):
     """Validate that critical columns do not contain NULL values"""
     data_quality_library.check_not_null_values(
         target_data,
-        ['facility_name', 'visit_date', 'min_time_spent']
+        ['facility_type', 'visit_date', 'avg_time_spent']
     )
