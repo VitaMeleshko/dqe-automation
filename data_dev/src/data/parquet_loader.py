@@ -114,7 +114,7 @@ class LoadParquet:
         )
 
     # TODO: do better approach for: df['facility_type_partition'] = df['facility_type'] - workaround,
-    def transform_patient_sum_treatment_cost_per_facility_type(self):
+    def transform_patient_sum_treatment_cost_per_facility_type(self) -> None:
         """
         Transforms data for patient sum treatment cost per facility type and writes it to a Parquet file.
         """

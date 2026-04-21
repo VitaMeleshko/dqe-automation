@@ -12,13 +12,13 @@ def source_data(db_connection):
     """
     source_query = """
     SELECT 
-        f.facility_name,
+        f.facility_type,
         DATE(v.visit_timestamp) as visit_date,
-        MIN(v.duration_minutes) as min_time_spent
+        AVG(v.duration_minutes) as avg_time_spent
     FROM visits v
     JOIN facilities f ON v.facility_id = f.id
-    GROUP BY f.facility_name, DATE(v.visit_timestamp)
-    ORDER BY f.facility_name, DATE(v.visit_timestamp)
+    GROUP BY f.facility_type, DATE(v.visit_timestamp)
+    ORDER BY f.facility_type, DATE(v.visit_timestamp)
     """
     source_data = db_connection.get_data_sql(source_query)
     return source_data

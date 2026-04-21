@@ -14,13 +14,13 @@ def source_data(db_connection):
     """
     source_query = """
     SELECT 
-        v.patient_id,
         f.facility_type,
+        CONCAT(p.first_name, ' ', p.last_name) AS full_name,
         SUM(v.treatment_cost) as sum_treatment_cost
     FROM visits v
     JOIN facilities f ON v.facility_id = f.id
-    GROUP BY v.patient_id, f.facility_type
-    ORDER BY v.patient_id, f.facility_type
+    JOIN patients p  ON p.id = v.patient_id
+    GROUP BY  f.facility_type, full_name
     """
     source_data = db_connection.get_data_sql(source_query)
     return source_data
