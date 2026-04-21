@@ -27,6 +27,12 @@ class DataQualityLibrary:
 
         assert count1 == count2, f"Row count mismatch: df1={count1}, df2={count2}"
 
+    @staticmethod
+    def check_dataset_is_not_empty(df):
+
+        row_count = len(df)
+
+        assert row_count > 0, f"DataFrame is empty (row count: {row_count})"
 
     @staticmethod
     def check_data_full_data_set(df1, df2):
@@ -35,20 +41,10 @@ class DataQualityLibrary:
         df2_sorted = df2.sort_values(by=df2.columns.tolist()).reset_index(drop=True)
 
         # Validate that two data frames are equal
-        assert df1_sorted.equals(df2_sorted), (
-            f"DataFrames are not equal:\n"
-            f"  Source shape: {df1.shape}\n"
-            f"  Target shape: {df2.shape}\n"
-            f"  Source columns: {df1.columns.tolist()}\n"
-            f"  Target columns: {df2.columns.tolist()}"
-    )
+        if not df1_sorted.equals(df2_sorted):
+            diff = df1_sorted.compare(df2_sorted)
+            assert False, f"DataFrames differ:\n{diff.head(10)}"
 
-    @staticmethod
-    def check_dataset_is_not_empty(df):
-
-        row_count = len(df)
-
-        assert row_count > 0, f"DataFrame is empty (row count: {row_count})"
 
     @staticmethod
     def check_not_null_values(df, column_names=None):
