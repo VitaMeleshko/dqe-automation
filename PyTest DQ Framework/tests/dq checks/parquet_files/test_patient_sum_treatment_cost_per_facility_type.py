@@ -76,5 +76,5 @@ def test_check_not_null_values(target_data, data_quality_library):
     """Validate that critical columns do not contain NULL values"""
     data_quality_library.check_not_null_values(
         target_data,
-        ['patient_id', 'facility_type', 'sum_treatment_cost']
+        [ 'facility_type', 'full_name', 'sum_treatment_cost']
     )
