@@ -57,5 +57,8 @@ class DataQualityLibrary:
             column_names = df.columns.tolist()
 
         for col in column_names:
-            null_count = df[col].isnull().sum()
-            assert null_count == 0, f"Column '{col}' contains {null_count} NULL values"
+            try:
+                null_count = df[col].isnull().sum()
+                assert null_count == 0, f"Column '{col}' contains {null_count} NULL values"
+            except KeyError:
+                assert False, f"Column '{col}' does not exist in DataFrame. Available columns: {list(df.columns)}"
