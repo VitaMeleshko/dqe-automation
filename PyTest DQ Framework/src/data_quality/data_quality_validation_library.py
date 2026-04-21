@@ -36,14 +36,19 @@ class DataQualityLibrary:
 
     @staticmethod
     def check_data_full_data_set(df1, df2):
-
         df1_sorted = df1.sort_values(by=df1.columns.tolist()).reset_index(drop=True)
         df2_sorted = df2.sort_values(by=df2.columns.tolist()).reset_index(drop=True)
 
-        # Validate that two data frames are equal
         if not df1_sorted.equals(df2_sorted):
-            diff = df1_sorted.compare(df2_sorted)
-            assert False, f"DataFrames differ:\n{diff.head(10)}"
+            if len(df1_sorted) != len(df2_sorted):
+                assert False, (
+                    f"Row count mismatch:\n"
+                    f"  df1: {len(df1)} rows, shape: {df1.shape}\n"
+                    f"  df2: {len(df2)} rows, shape: {df2.shape}"
+                )
+            else:
+                diff = df1_sorted.compare(df2_sorted)
+                assert False, f"Data differences:\n{diff.head(10)}"
 
 
     @staticmethod
