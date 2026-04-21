@@ -43,8 +43,8 @@ class DataQualityLibrary:
             if len(df1_sorted) != len(df2_sorted):
                 assert False, (
                     f"Row count mismatch:\n"
-                    f"  df1: {len(df1)} rows, shape: {df1.shape}\n"
-                    f"  df2: {len(df2)} rows, shape: {df2.shape}"
+                    f"  df1: {len(df1)} rows, columns: {list(df1.columns)}\n"
+                    f"  df2: {len(df2)} rows, columns: {list(df2.columns)}"
                 )
             else:
                 diff = df1_sorted.compare(df2_sorted)
