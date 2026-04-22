@@ -28,7 +28,7 @@ def target_data(parquet_reader):
     """
     read data from  Parquet files (target).
     """
-    target_path = '/parquet_data/facility_name_min_time_spent_per_visit_date'
+    target_path = '/parquet_data/facility_type_avg_time_spent_per_visit_date'
     target_data = parquet_reader.process(target_path, include_subfolders=True)
 
     # Remove partition_date (created for partitioning)
