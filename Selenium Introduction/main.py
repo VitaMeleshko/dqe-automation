@@ -22,42 +22,43 @@ class SeleniumWebDriverContextManager:
         return False
 
 
-def extract_table(driver, filename="table.csv", take_first_columns=3, take_first_rows=10):
-    """Extract table data and save to CSV"""
-    try:
-        WebDriverWait(driver, 10).until(
-            EC.visibility_of_element_located((By.CLASS_NAME, "table"))
-        )
+def save_table_to_csv(driver, filename="table.csv", take_first_columns=3, take_first_rows=20):
+    WebDriverWait(driver, 10).until(
+        EC.visibility_of_element_located((By.CLASS_NAME, "table"))
+    )
 
-        table = driver.find_element(By.CLASS_NAME, "table")
-        columns = table.find_elements(By.CLASS_NAME, "y-column")[:take_first_columns]
+    driver.find_element(By.CSS_SELECTOR, "g.table")
 
-        headers = []
-        all_values = []
+    table = driver.find_element(By.CLASS_NAME, "table")
 
-        for col in columns:
-            header_text = col.find_element(By.ID, "header").text.strip()
-            headers.append(header_text)
+    columns = table.find_elements(By.CLASS_NAME, "y-column")[:take_first_columns]
 
-            cells = col.find_elements(By.CLASS_NAME, "cell-text")
-            values = []
-            for c in cells:
-                text = c.text.strip()
-                if text and text != header_text:
-                    values.append(text)
+    headers = []
+    all_values = []
 
-            all_values.append(values[:take_first_rows])
+    for col in columns:
+        header_text = col.find_element(By.ID, "header").text.strip()
+        headers.append(header_text)
 
-        rows = list(zip(*all_values))
+        cells = col.find_elements(By.CLASS_NAME, "cell-text")
 
-        with open(filename, "w", newline="", encoding="utf-8") as f:
-            writer = csv.writer(f)
-            writer.writerow(headers)
-            writer.writerows(rows)
 
-        print(f"OK: {filename} saved")
-    except (TimeoutException, NoSuchElementException) as e:
-        print(f"ERROR: cannot read table: {e}")
+        values = []
+        for c in cells:
+            text = c.text.strip()
+            if text and text != header_text:
+                values.append(text)
+
+        all_values.append(values[:take_first_rows])
+
+    rows = list(zip(*all_values))
+
+    # 10) Записуємо у CSV
+    with open(filename, "w", newline="", encoding="utf-8") as f:
+        writer = csv.writer(f)
+        writer.writerow(headers)
+        writer.writerows(rows)
+
 
 
 def extract_doughnut_chart(driver, result_dir="results"):
@@ -141,7 +142,7 @@ if __name__ == "__main__":
         time.sleep(0.5)
 
         # Extract table content
-        extract_table(driver, "table.csv")
+        save_table_to_csv(driver, "table.csv")
 
         # Extract doughnut chart data
         extract_doughnut_chart(driver, RESULT_DIR)
