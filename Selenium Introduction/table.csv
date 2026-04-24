@@ -1,18 +1,21 @@
 Facility Type,Visit Date,Average Time Spent
+Specialty Center,2026-04-17,30.5
+Hospital,2026-04-17,27.5
+Clinic,2026-04-17,37
 Specialty Center,2026-04-16,29
 Hospital,2026-04-16,40.4
 Clinic,2026-04-16,48
-Specialty Center,2026-04-15,32
-Hospital,2026-04-15,35.67
-Clinic,2026-04-14,39.75
+Hospital,2026-04-15,32
+Clinic,2026-04-15,35.67
+Specialty Center,2026-04-14,39.75
 Hospital,2026-04-14,40
 Clinic,2026-04-14,37.5
 Specialty Center,2026-04-13,43.5
 Hospital,2026-04-13,28
 Clinic,2026-04-13,49.67
-Hospital,2026-04-12,46.5
-Clinic,2026-04-12,17
-Hospital,2026-04-12,25.67
-Clinic,2026-04-11,41
+Specialty Center,2026-04-12,46.5
+Hospital,2026-04-12,17
+Clinic,2026-04-12,25.67
+Specialty Center,2026-04-11,41
 Hospital,2026-04-11,23
 Clinic,2026-04-11,18.5
