@@ -5,6 +5,7 @@
 - [Prerequisites](#-prerequisites)
 - [Installation](#-installation)
 - [How to Run](#how-to-run)
+- [View results](#View-results)
 - [Project Structure](#project-structure)
 
 ---
@@ -15,42 +16,27 @@
 - Selenium: Selenium 4.0 or higher is required.
 
 ## 📦  Installation
-### Install Robot Framework
+### Clone repository
 ```
-pip install robotframework
+git clone <your-repository-url>
+cd '.\Robot Framework\'
 ```
-###  Install SeleniumLibrary (for web testing)
+###  Install dependecies
 ```
-pip install robotframework-seleniumlibrary
+pip install -r requirements.txt
 ```
-###  Install DatabaseLibrary (for database testing)
-```
-pip install robotframework-databaselibrary
-```
-###  Install RequestsLibrary (for API testing)
-```
-pip install robotframework-requests
-```
-###  Install Robot Framework IDE Support
-#### VS Code extensions like
-```
-Robot Framework Language Server
-```
-#### PyCharm plugin: 
-```
-Robot Framework Support
-```
-### 1. Put your HTML report here:
-```
-generated_report/report.html
-```
-### 2. Run the script:
+## How to run
+
+### Run with custom output folder
 ```
 robot --outputdir ./results test.robot
 ```
-### 3. Check outputs in:
-```
-result/
+## View results
+After test execution, open:
+```markdown
+results/report.html 
+results/log.html 
+results/output.xml
 ```
 ## Project Structure
 ```markdown
