@@ -1,4 +1,4 @@
 */logs/
 */drivers/
-*/output/
+Robot Framework/output/
 read_parquet.py
