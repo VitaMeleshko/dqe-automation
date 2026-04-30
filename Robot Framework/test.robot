@@ -1,3 +1,4 @@
+# test.robot
 *** Settings ***
 Library    SeleniumLibrary
 Library    helper.py
@@ -11,12 +12,13 @@ ${FILTER_DATE}      2026-04-11
 HTML table should match Parquet data
     Open Report In Chrome    ${REPORT_FILE}
 
-    ${html}=       Get Source
-    ${html_df}=    Read Html Table To Df    ${html}
-    ${pq_df}=      Read Parquet To Df       ${PARQUET_FOLDER}    ${FILTER_DATE}
-
-    Dataframes Should Match Exactly         ${html_df}    ${pq_df}
-
+    ${driver}=     Get WebDriver Instance
+    ${html_df}=    Read Html Table To Df      ${driver}
+    ${pq_df}=      Read Parquet To Df         ${PARQUET_FOLDER}    ${FILTER_DATE}
+    
+    ${match}    ${diff}=    Compare Dataframes    ${html_df}    ${pq_df}
+    Run Keyword If    not ${match}    Fail    Data mismatch:\n${diff}
+    
     [Teardown]    Close Browser
 
 *** Keywords ***
@@ -24,4 +26,3 @@ Open Report In Chrome
     [Arguments]    ${report_file}
     ${abs}=    Evaluate    __import__("os").path.abspath(r"""${report_file}""")
     Open Browser    file:///${abs}    chrome
-    Maximize Browser Window
