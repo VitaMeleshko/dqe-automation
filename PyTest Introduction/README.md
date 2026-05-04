@@ -48,8 +48,8 @@ pytest --version
 pip list
 ```
 ## Report Portal Integration
-### “Set `RP_API_KEY` as environment variable in PyCharm Run Configuration”  
-### “Create `.env` and add it to `.gitignore`”.
+#### Set `RP_API_KEY` as environment variable in PyCharm Run Configuration” 
+#### Create `.env` and add it to `.gitignore`.
 
 ## Project Structure
 ```markdown
