@@ -12,8 +12,8 @@ ${FILTER_DATE}      2026-04-11
 HTML table should match Parquet data
     Open Report In Chrome    ${REPORT_FILE}
 
-    ${driver}=     Get WebDriver Instance
-    ${html_df}=    Read Html Table To Df      ${driver}
+    ${table_element}=    Get WebElement       class:table
+    ${html_df}=    Read Html Table To Df      ${table_element}
     ${pq_df}=      Read Parquet To Df         ${PARQUET_FOLDER}    ${FILTER_DATE}
     
     ${match}    ${diff}=    Compare Dataframes    ${html_df}    ${pq_df}

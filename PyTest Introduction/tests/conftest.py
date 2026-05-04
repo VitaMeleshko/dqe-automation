@@ -1,5 +1,7 @@
 import pytest
 import pandas as pd
+from dotenv import load_dotenv
+load_dotenv()
 
 # Fixture to load csv file and returns DataFrame
 @pytest.fixture(scope="session")

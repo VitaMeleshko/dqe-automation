@@ -3,12 +3,14 @@
 ## 📋 Table of Contents
 
 - [Prerequisites](#-prerequisites)
+- [ReportPortal Integration](#report-portal-integration)
 - [Installation](#-installation)
 - [Project Structure](#project-structure)
 - [Configuration Files](#configuration-files)
 - [Running Tests](#running-tests)
 - [Generated Reports](#generated-reports)
 - [Test Markers](#test-markers)
+
 
 ---
 ## 🔧 Prerequisites
@@ -45,6 +47,9 @@ pytest --version
 ```
 pip list
 ```
+## Report Portal Integration
+### “Set `RP_API_KEY` as environment variable in PyCharm Run Configuration”  
+### “Create `.env` and add it to `.gitignore`”.
 
 ## Project Structure
 ```markdown

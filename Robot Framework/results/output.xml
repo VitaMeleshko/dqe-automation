@@ -1,81 +1,80 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generator="Robot 7.4.2 (Python 3.14.3 on win32)" generated="2026-04-30T17:40:01.800381" rpa="false" schemaversion="5">
+<robot generator="Robot 7.4.2 (Python 3.14.3 on win32)" generated="2026-04-30T18:39:56.668171" rpa="false" schemaversion="5">
 <suite id="s1" name="Test" source="C:\Users\VitaMeleshko\PycharmProjects\dqe-automation\Robot Framework\test.robot">
 <test id="s1-t1" name="HTML table should match Parquet data" line="12">
 <kw name="Open Report In Chrome">
 <kw name="Evaluate" owner="BuiltIn">
-<msg time="2026-04-30T17:40:02.287255" level="INFO">${abs} = C:\Users\VitaMeleshko\PycharmProjects\dqe-automation\Robot Framework\report.html</msg>
+<msg time="2026-04-30T18:39:57.155854" level="INFO">${abs} = C:\Users\VitaMeleshko\PycharmProjects\dqe-automation\Robot Framework\report.html</msg>
 <var>${abs}</var>
 <arg>__import__("os").path.abspath(r"""${report_file}""")</arg>
 <doc>Evaluates the given expression in Python and returns the result.</doc>
-<status status="PASS" start="2026-04-30T17:40:02.286922" elapsed="0.000360"/>
+<status status="PASS" start="2026-04-30T18:39:57.155012" elapsed="0.000912"/>
 </kw>
 <kw name="Open Browser" owner="SeleniumLibrary">
-<msg time="2026-04-30T17:40:02.287529" level="INFO">Opening browser 'chrome' to base url 'file:///C:\Users\VitaMeleshko\PycharmProjects\dqe-automation\Robot Framework\report.html'.</msg>
+<msg time="2026-04-30T18:39:57.156703" level="INFO">Opening browser 'chrome' to base url 'file:///C:\Users\VitaMeleshko\PycharmProjects\dqe-automation\Robot Framework\report.html'.</msg>
 <arg>file:///${abs}</arg>
 <arg>chrome</arg>
 <doc>Opens a new browser instance to the optional ``url``.</doc>
-<status status="PASS" start="2026-04-30T17:40:02.287385" elapsed="2.519902"/>
+<status status="PASS" start="2026-04-30T18:39:57.156216" elapsed="2.591712"/>
 </kw>
 <arg>${REPORT_FILE}</arg>
-<status status="PASS" start="2026-04-30T17:40:02.286392" elapsed="2.521048"/>
+<status status="PASS" start="2026-04-30T18:39:57.153767" elapsed="2.594391"/>
 </kw>
-<kw name="Get Webdriver Instance" owner="helper">
-<msg time="2026-04-30T17:40:04.809339" level="INFO">${driver} = &lt;selenium.webdriver.chrome.webdriver.WebDriver (session="90ec874f4805f6c0fa69e544dbbebead")&gt;</msg>
-<var>${driver}</var>
-<status status="PASS" start="2026-04-30T17:40:04.809013" elapsed="0.000421"/>
+<kw name="Get WebElement" owner="SeleniumLibrary">
+<msg time="2026-04-30T18:39:59.760848" level="INFO">${table_element} = &lt;selenium.webdriver.remote.webelement.WebElement (session="da481a1fb2dc95ba3a731459e0424fd7", element="f.1BDEBDBBC175C2BAAFC662B177DE745F.d.6914F099953E04114C2F3BF67622F797.e.2")&gt;</msg>
+<var>${table_element}</var>
+<arg>class:table</arg>
+<doc>Returns the first WebElement matching the given ``locator``.</doc>
+<status status="PASS" start="2026-04-30T18:39:59.748539" elapsed="0.012374"/>
 </kw>
 <kw name="Read Html Table To Df" owner="helper">
-<msg time="2026-04-30T17:40:05.284239" level="INFO">${html_df} =        Facility Type  Visit Date  Average Time Spent
-0   Specialty Center  2026-04-17               30.50
-1           Hospital  2026-04-17               27.50
-2             Clinic  2026-04-17         ...</msg>
+<msg time="2026-04-30T18:40:00.923647" level="INFO">${html_df} =        Facility Type  Visit Date Average Time Spent
+0   Specialty Center  2026-04-17               30.5
+1           Hospital  2026-04-17               27.5
+2             Clinic  2026-04-17            ...</msg>
 <var>${html_df}</var>
-<arg>${driver}</arg>
-<status status="PASS" start="2026-04-30T17:40:04.809714" elapsed="0.474588"/>
+<arg>${table_element}</arg>
+<status status="PASS" start="2026-04-30T18:39:59.761337" elapsed="1.162367"/>
 </kw>
 <kw name="Read Parquet To Df" owner="helper">
-<msg time="2026-04-30T17:40:05.931629" level="INFO">${pq_df} =           Facility Type  Visit Date  Average Time Spent
-25327            Clinic  2026-04-11               18.50
-25328  Specialty Center  2026-04-11               41.00
-25329  Specialty Center  2026-04...</msg>
+<msg time="2026-04-30T18:40:01.492411" level="INFO">${pq_df} =                0           1                   2
+0  Facility Type  Visit Date  Average Time Spent</msg>
 <var>${pq_df}</var>
 <arg>${PARQUET_FOLDER}</arg>
 <arg>${FILTER_DATE}</arg>
-<status status="PASS" start="2026-04-30T17:40:05.284788" elapsed="0.646887"/>
+<status status="PASS" start="2026-04-30T18:40:00.923974" elapsed="0.568504"/>
 </kw>
 <kw name="Compare Dataframes" owner="helper">
-<msg time="2026-04-30T17:40:05.934252" level="INFO">${match} = True</msg>
-<msg time="2026-04-30T17:40:05.934287" level="INFO">${diff} = </msg>
+<msg time="2026-04-30T18:40:01.500433" level="FAIL">ValueError: Can only compare identically-labeled (both index and columns) DataFrame objects</msg>
 <var>${match}</var>
 <var>${diff}</var>
 <arg>${html_df}</arg>
 <arg>${pq_df}</arg>
-<status status="PASS" start="2026-04-30T17:40:05.931947" elapsed="0.002355"/>
+<status status="FAIL" start="2026-04-30T18:40:01.492794" elapsed="0.015240">ValueError: Can only compare identically-labeled (both index and columns) DataFrame objects</status>
 </kw>
 <kw name="Run Keyword If" owner="BuiltIn">
 <arg>not ${match}</arg>
 <arg>Fail</arg>
 <arg>Data mismatch:\n${diff}</arg>
 <doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
-<status status="PASS" start="2026-04-30T17:40:05.934538" elapsed="0.000372"/>
+<status status="NOT RUN" start="2026-04-30T18:40:01.508497" elapsed="0.000046"/>
 </kw>
 <kw name="Close Browser" owner="SeleniumLibrary" type="TEARDOWN">
 <doc>Closes the current browser.</doc>
-<status status="PASS" start="2026-04-30T17:40:05.935264" elapsed="2.132503"/>
+<status status="PASS" start="2026-04-30T18:40:01.509138" elapsed="2.162154"/>
 </kw>
-<status status="PASS" start="2026-04-30T17:40:02.285814" elapsed="5.782354"/>
+<status status="FAIL" start="2026-04-30T18:39:57.152334" elapsed="6.519293">ValueError: Can only compare identically-labeled (both index and columns) DataFrame objects</status>
 </test>
-<status status="PASS" start="2026-04-30T17:40:01.801821" elapsed="6.267361"/>
+<status status="FAIL" start="2026-04-30T18:39:56.669373" elapsed="7.003252"/>
 </suite>
 <statistics>
 <total>
-<stat pass="1" fail="0" skip="0">All Tests</stat>
+<stat pass="0" fail="1" skip="0">All Tests</stat>
 </total>
 <tag>
 </tag>
 <suite>
-<stat name="Test" id="s1" pass="1" fail="0" skip="0">Test</stat>
+<stat name="Test" id="s1" pass="0" fail="1" skip="0">Test</stat>
 </suite>
 </statistics>
 <errors>
