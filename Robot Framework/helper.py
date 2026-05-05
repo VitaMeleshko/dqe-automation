@@ -45,9 +45,9 @@ def read_parquet_to_df(parquet_root: str, filter_date: str = "") -> pd.DataFrame
     df = df.rename(columns=COLUMN_MAP)
 
     if filter_date:
-        df["Visit Date"] = pd.to_datetime(df["Visit Date"])
-        df = df[df["Visit Date"] >= pd.to_datetime(filter_date)]
-        df["Visit Date"] = df["Visit Date"].dt.strftime("%Y-%m-%d")
+       df["Visit Date"] = pd.to_datetime(df["Visit Date"])
+       df = df[df["Visit Date"] >= pd.to_datetime(filter_date)]
+       df["Visit Date"] = df["Visit Date"].dt.strftime("%Y-%m-%d")
 
     return df
 
@@ -62,8 +62,8 @@ def compare_dataframes(df1: pd.DataFrame, df2: pd.DataFrame) -> tuple:
         return True, ""
 
     # Show data differences
-    comparison = df1_sorted.compare(df2_sorted, keep_equal=False)
-    diff_report = f"Data differences (first 30 rows):\n{comparison.head(30).to_string()}"
+    diff_report = f"HTML row counts: {len(df1_sorted)}\nParquet row counts: {len(df2_sorted)}\n\n"
+    diff_report += f"HTML:\n{df1_sorted.head(10)}\n\nParquet:\n{df2_sorted.head(10)}"
 
     return False, diff_report
 

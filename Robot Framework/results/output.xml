@@ -1,74 +1,74 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generator="Robot 7.4.2 (Python 3.14.3 on win32)" generated="2026-05-05T17:57:43.164505" rpa="false" schemaversion="5">
+<robot generator="Robot 7.4.2 (Python 3.14.3 on win32)" generated="2026-05-05T18:35:11.954354" rpa="false" schemaversion="5">
 <suite id="s1" name="Test" source="C:\Users\VitaMeleshko\PycharmProjects\dqe-automation\Robot Framework\test.robot">
 <test id="s1-t1" name="HTML table should match Parquet data" line="11">
 <kw name="Open Report In Chrome">
 <kw name="Evaluate" owner="BuiltIn">
-<msg time="2026-05-05T17:57:43.621031" level="INFO">${abs} = C:\Users\VitaMeleshko\PycharmProjects\dqe-automation\Robot Framework\report.html</msg>
+<msg time="2026-05-05T18:35:12.406297" level="INFO">${abs} = C:\Users\VitaMeleshko\PycharmProjects\dqe-automation\Robot Framework\report.html</msg>
 <var>${abs}</var>
 <arg>__import__("os").path.abspath(r"""${report_file}""")</arg>
 <doc>Evaluates the given expression in Python and returns the result.</doc>
-<status status="PASS" start="2026-05-05T17:57:43.620630" elapsed="0.000435"/>
+<status status="PASS" start="2026-05-05T18:35:12.405942" elapsed="0.000383"/>
 </kw>
 <kw name="Open Browser" owner="SeleniumLibrary">
-<msg time="2026-05-05T17:57:43.621369" level="INFO">Opening browser 'chrome' to base url 'file:///C:\Users\VitaMeleshko\PycharmProjects\dqe-automation\Robot Framework\report.html'.</msg>
+<msg time="2026-05-05T18:35:12.406598" level="INFO">Opening browser 'chrome' to base url 'file:///C:\Users\VitaMeleshko\PycharmProjects\dqe-automation\Robot Framework\report.html'.</msg>
 <arg>file:///${abs}</arg>
 <arg>chrome</arg>
 <doc>Opens a new browser instance to the optional ``url``.</doc>
-<status status="PASS" start="2026-05-05T17:57:43.621193" elapsed="2.945388"/>
+<status status="PASS" start="2026-05-05T18:35:12.406436" elapsed="4.045802"/>
 </kw>
 <arg>${REPORT_FILE}</arg>
-<status status="PASS" start="2026-05-05T17:57:43.619857" elapsed="2.946901"/>
+<status status="PASS" start="2026-05-05T18:35:12.405409" elapsed="4.047011"/>
 </kw>
 <kw name="Get WebElement" owner="SeleniumLibrary">
-<msg time="2026-05-05T17:57:46.576426" level="INFO">${table_element} = &lt;selenium.webdriver.remote.webelement.WebElement (session="3e622d194f7fdd0d024c897d733b6b4a", element="f.F7B9D3E36D552A28AB365A1ADC9F0330.d.AE31576B9A48461063202C93F445EAF2.e.2")&gt;</msg>
+<msg time="2026-05-05T18:35:16.469422" level="INFO">${table_element} = &lt;selenium.webdriver.remote.webelement.WebElement (session="0c9c5b17d64834b2060b6fe2308cb4f4", element="f.2E0309C4ABEEBDF7A75E1139A3D06A58.d.1255D36B9B2675B0C1E865566420F47C.e.2")&gt;</msg>
 <var>${table_element}</var>
 <arg>class:table</arg>
 <doc>Returns the first WebElement matching the given ``locator``.</doc>
-<status status="PASS" start="2026-05-05T17:57:46.567139" elapsed="0.009350"/>
+<status status="PASS" start="2026-05-05T18:35:16.453008" elapsed="0.016487"/>
 </kw>
 <kw name="Read Html Table To Df" owner="helper">
-<msg time="2026-05-05T17:57:47.247383" level="INFO">${html_df} =        Facility Type  Visit Date  Average Time Spent
+<msg time="2026-05-05T18:35:17.469618" level="INFO">${html_df} =        Facility Type  Visit Date  Average Time Spent
 0   Specialty Center  2026-04-17               30.50
 1           Hospital  2026-04-17               27.50
 2             Clinic  2026-04-17         ...</msg>
 <var>${html_df}</var>
 <arg>${table_element}</arg>
-<status status="PASS" start="2026-05-05T17:57:46.576931" elapsed="0.670516"/>
+<status status="PASS" start="2026-05-05T18:35:16.470015" elapsed="0.999674"/>
 </kw>
 <kw name="Read Parquet To Df" owner="helper">
-<msg time="2026-05-05T17:57:47.891637" level="INFO">${pq_df} =           Facility Type  Visit Date  Average Time Spent
+<msg time="2026-05-05T18:35:18.178386" level="INFO">${pq_df} =           Facility Type  Visit Date  Average Time Spent
 25327            Clinic  2026-04-11               18.50
 25328  Specialty Center  2026-04-11               41.00
 25329  Specialty Center  2026-04...</msg>
 <var>${pq_df}</var>
 <arg>${PARQUET_FOLDER}</arg>
 <arg>${FILTER_DATE}</arg>
-<status status="PASS" start="2026-05-05T17:57:47.247796" elapsed="0.643895"/>
+<status status="PASS" start="2026-05-05T18:35:17.470079" elapsed="0.708350"/>
 </kw>
 <kw name="Compare Dataframes" owner="helper">
-<msg time="2026-05-05T17:57:47.895391" level="INFO">${match} = True</msg>
-<msg time="2026-05-05T17:57:47.895444" level="INFO">${diff} = </msg>
+<msg time="2026-05-05T18:35:18.181912" level="INFO">${match} = True</msg>
+<msg time="2026-05-05T18:35:18.181956" level="INFO">${diff} = </msg>
 <var>${match}</var>
 <var>${diff}</var>
 <arg>${html_df}</arg>
 <arg>${pq_df}</arg>
-<status status="PASS" start="2026-05-05T17:57:47.891988" elapsed="0.003478"/>
+<status status="PASS" start="2026-05-05T18:35:18.178752" elapsed="0.003223"/>
 </kw>
 <kw name="Run Keyword If" owner="BuiltIn">
 <arg>not ${match}</arg>
 <arg>Fail</arg>
 <arg>Data mismatch:\n${diff}</arg>
 <doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
-<status status="PASS" start="2026-05-05T17:57:47.895793" elapsed="0.000398"/>
+<status status="PASS" start="2026-05-05T18:35:18.182329" elapsed="0.000809"/>
 </kw>
 <kw name="Close Browser" owner="SeleniumLibrary" type="TEARDOWN">
 <doc>Closes the current browser.</doc>
-<status status="PASS" start="2026-05-05T17:57:47.896566" elapsed="2.120989"/>
+<status status="PASS" start="2026-05-05T18:35:18.184044" elapsed="2.176328"/>
 </kw>
-<status status="PASS" start="2026-05-05T17:57:43.618747" elapsed="6.399221"/>
+<status status="PASS" start="2026-05-05T18:35:12.404414" elapsed="7.956410"/>
 </test>
-<status status="PASS" start="2026-05-05T17:57:43.165873" elapsed="6.852705"/>
+<status status="PASS" start="2026-05-05T18:35:11.956706" elapsed="8.405351"/>
 </suite>
 <statistics>
 <total>
