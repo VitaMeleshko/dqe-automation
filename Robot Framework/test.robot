@@ -1,4 +1,3 @@
-# test.robot
 *** Settings ***
 Library    SeleniumLibrary
 Library    helper.py
@@ -15,7 +14,8 @@ HTML table should match Parquet data
     ${table_element}=    Get WebElement       class:table
     ${html_df}=    Read Html Table To Df      ${table_element}
     ${pq_df}=      Read Parquet To Df         ${PARQUET_FOLDER}    ${FILTER_DATE}
-    
+
+
     ${match}    ${diff}=    Compare Dataframes    ${html_df}    ${pq_df}
     Run Keyword If    not ${match}    Fail    Data mismatch:\n${diff}
     

@@ -2,7 +2,6 @@ from pathlib import Path
 import pandas as pd
 from selenium.webdriver.common.by import By
 
-
 # ========== HTML -> DataFrame (Selenium) ==========
 
 def read_html_table_to_df(element) -> pd.DataFrame:
@@ -15,10 +14,15 @@ def read_html_table_to_df(element) -> pd.DataFrame:
             for cell in  col.find_elements(By.CLASS_NAME, "cell-text")
             if cell.text.strip() != header_text
             ]
-
         table_dict[header_text] = cells
-    return pd.DataFrame(table_dict)
 
+    df = pd.DataFrame(table_dict)
+
+    # Convert to numeric
+    if "Average Time Spent" in df.columns:
+        df["Average Time Spent"] = pd.to_numeric(df["Average Time Spent"], errors='coerce')
+
+    return df
 
 # ========== Parquet -> DataFrame ==========
 
@@ -28,13 +32,15 @@ COLUMN_MAP = {
     "avg_time_spent": "Average Time Spent",
 }
 
-
 def read_parquet_to_df(parquet_root: str, filter_date: str = "") -> pd.DataFrame:
     root = Path(parquet_root)
 
     files = list(root.rglob("*.parquet"))
 
     df = pd.concat([pd.read_parquet(f, engine="pyarrow") for f in files], ignore_index=True)
+
+    if "partition_date" in df.columns:
+        df = df.drop(columns=["partition_date"])
 
     df = df.rename(columns=COLUMN_MAP)
 
@@ -43,10 +49,7 @@ def read_parquet_to_df(parquet_root: str, filter_date: str = "") -> pd.DataFrame
         df = df[df["Visit Date"] >= pd.to_datetime(filter_date)]
         df["Visit Date"] = df["Visit Date"].dt.strftime("%Y-%m-%d")
 
-    df = pd.DataFrame([["Facility Type", "Visit Date", "Average Time Spent"]])
-
     return df
-
 
 # ========== Compare ==========
 
@@ -63,3 +66,4 @@ def compare_dataframes(df1: pd.DataFrame, df2: pd.DataFrame) -> tuple:
     diff_report = f"Data differences (first 30 rows):\n{comparison.head(30).to_string()}"
 
     return False, diff_report
+
